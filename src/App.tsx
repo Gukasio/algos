@@ -35,7 +35,7 @@ export default function App() {
     if (isPlaying && currentStepIndex < stepStates.length - 1) {
       timer = window.setTimeout(() => {
         setCurrentStepIndex(prev => prev + 1);
-      }, 800); // 800ms per step
+      }, 350); // 350ms per step
     } else if (isPlaying && currentStepIndex >= stepStates.length - 1) {
       setIsPlaying(false);
     }
@@ -163,6 +163,7 @@ export default function App() {
     resetAlgorithm();
     setNodes([]);
     setEdges([]);
+    setInitialDist([]);
   };
 
   const currentState = currentStepIndex >= 0 && currentStepIndex < stepStates.length 
@@ -323,8 +324,11 @@ export default function App() {
           <div className="panel-title">Algorithm State</div>
           {mode !== 'running' ? (
             <div className="info-box">
-              <p>Build your graph by adding nodes and edges.</p>
-              <p>Click "Run Algorithm" to visualize Floyd-Warshall shortest paths step-by-step.</p>
+              <p><strong>Floyd-Warshall Algorithm</strong> finds the shortest paths between all pairs of nodes.</p>
+              <br/>
+              <p>It works by progressively checking if a path between node <strong>i</strong> and <strong>j</strong> is shorter when going through an intermediate node <strong>k</strong>.</p>
+              <br/>
+              <p>Build your graph by adding nodes and edges, then click "Run Algorithm" to visualize this process.</p>
             </div>
           ) : (
             <>
@@ -355,7 +359,9 @@ export default function App() {
               
               {currentState && (
                 <div className="info-box">
-                  <p>Step {currentStepIndex + 1} of {stepStates.length}</p>
+                  <p style={{ marginBottom: '8px' }}>Step {currentStepIndex + 1} of {stepStates.length}</p>
+                  <p>Does the path from <strong>i</strong> to <strong>j</strong> become shorter if we go through <strong>k</strong>?</p>
+                  <hr style={{ margin: '12px 0', borderColor: 'rgba(255,255,255,0.1)' }} />
                   <p>Intermediate Node (k): <strong>{nodes[currentState.k].id}</strong></p>
                   <p>Source (i): <strong>{nodes[currentState.i].id}</strong>, Dest (j): <strong>{nodes[currentState.j].id}</strong></p>
                   <div className="equation">
@@ -364,9 +370,13 @@ export default function App() {
                       {currentState.dist[currentState.i][currentState.k] === Infinity ? '∞' : currentState.dist[currentState.i][currentState.k]} + {currentState.dist[currentState.k][currentState.j] === Infinity ? '∞' : currentState.dist[currentState.k][currentState.j]}
                     )
                   </div>
-                  {currentState.phase === 'updated' && (
+                  {currentState.phase === 'updated' ? (
                     <p style={{ color: '#f43f5e', marginTop: '8px', fontWeight: 'bold' }}>
-                      Distance updated!
+                      Yes! Distance updated.
+                    </p>
+                  ) : (
+                    <p style={{ color: 'var(--text-secondary)', marginTop: '8px' }}>
+                      No, keeping existing shortest path.
                     </p>
                   )}
                 </div>
