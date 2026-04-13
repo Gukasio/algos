@@ -1,0 +1,252 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 10;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.mode-selector {
+  display: flex;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.mode-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.workspace {
+  flex: 1;
+  position: relative;
+}
+
+.side-panel {
+  width: 400px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.panel-section {
+  margin-bottom: 2rem;
+}
+
+.panel-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.matrix-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.distance-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.distance-matrix th,
+.distance-matrix td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  width: 40px;
+  height: 40px;
+}
+
+.distance-matrix th {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.distance-matrix td {
+  transition: all 0.3s ease;
+}
+
+/* Visualization active states */
+.cell-active {
+  background-color: rgba(59, 130, 246, 0.2); /* blue tint */
+  color: var(--accent-color);
+  font-weight: bold;
+}
+
+.cell-comparing {
+  background-color: rgba(168, 85, 247, 0.2); /* purple tint */
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.cell-updated {
+  background-color: rgba(244, 63, 94, 0.2); /* neon red/pink */
+  color: #f43f5e;
+  font-weight: bold;
+  animation: pulse 1s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.7); }
+  50% { transform: scale(1.1); box-shadow: 0 0 10px 0 rgba(244, 63, 94, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+}
+
+/* Info Box */
+.info-box {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.equation {
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+  display: block;
+  text-align: center;
+}
+
+/* Graph classes */
+.node {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.node circle {
+  fill: var(--node-bg);
+  stroke: var(--node-border);
+  stroke-width: 2;
+  transition: all 0.3s ease;
+}
+
+.node text {
+  fill: var(--node-text);
+  font-weight: 600;
+  font-size: 14px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.node:hover circle {
+  fill: rgba(59, 130, 246, 0.2);
+  stroke-width: 3;
+}
+
+.node-active circle {
+  stroke: #f43f5e;
+  fill: rgba(244, 63, 94, 0.2);
+  stroke-width: 3;
+}
+
+.node-comparing circle {
+  stroke: #a855f7;
+  fill: rgba(168, 85, 247, 0.2);
+  stroke-width: 3;
+}
+
+.edge {
+  transition: all 0.3s ease;
+}
+
+.edge path {
+  stroke: var(--edge-color);
+  stroke-width: 2;
+  fill: none;
+  transition: all 0.3s ease;
+}
+
+.edge-active path {
+  stroke: #f43f5e;
+  stroke-width: 3;
+}
+
+.edge-comparing path {
+  stroke: #a855f7;
+  stroke-width: 3;
+  stroke-dasharray: 4 4;
+  animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.weight-label {
+  fill: var(--text-primary);
+  font-size: 12px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.weight-bg {
+  fill: var(--bg-secondary);
+  rx: 4px;
+  ry: 4px;
+}
