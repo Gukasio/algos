@@ -71,7 +71,7 @@ export default function App() {
         if (selectedNode !== nodeId) {
           const existing = edges.find(ed => ed.source === selectedNode && ed.target === nodeId);
           if (existing) {
-            alert('Edge already exists!');
+            alert('Путь уже существует!');
             setSelectedNode(null);
             return;
           }
@@ -238,7 +238,7 @@ export default function App() {
     <div className="app-container">
       <div className="main-content">
         <header className="header glass-panel">
-          <div className="title text-gradient">Floyd-Warshall Visualizer</div>
+          <div className="title text-gradient">Визуализатор Флойда-Уоршелла</div>
           <div className="controls">
             <div className="mode-selector">
               <button 
@@ -246,26 +246,26 @@ export default function App() {
                 onClick={() => setMode('add-node')}
                 disabled={mode === 'running'}
               >
-                Add Node
+                Добавить узел
               </button>
               <button 
                 className={`mode-btn ${mode === 'add-edge' ? 'active' : ''}`}
                 onClick={() => setMode('add-edge')}
                 disabled={mode === 'running'}
               >
-                Add Edge
+                Добавить путь
               </button>
             </div>
             {mode !== 'running' ? (
               <button className="button button-primary" onClick={runAlgorithm} disabled={nodes.length === 0}>
-                Run Algorithm
+                Запустить алгоритм
               </button>
             ) : (
               <button className="button" onClick={resetAlgorithm}>
-                Stop / Edit
+                Остановить / Изменить
               </button>
             )}
-            <button className="button" onClick={clearAll}>Clear All</button>
+            <button className="button" onClick={clearAll}>Очистить всё</button>
           </div>
         </header>
 
@@ -305,7 +305,7 @@ export default function App() {
 
       <aside className="side-panel">
         <div className="panel-section">
-          <div className="panel-title">Algorithm State</div>
+          <div className="panel-title">Состояние алгоритма</div>
           {mode !== 'running' ? null : (
             <>
               <div className="controls" style={{ marginBottom: '1rem', flexWrap: 'wrap' }}>
@@ -313,33 +313,33 @@ export default function App() {
                   className="button" 
                   onClick={() => { setIsPlaying(false); setCurrentStepIndex(0); }}
                   disabled={currentStepIndex <= 0}
-                >⏮ Start</button>
+                >⏮ Старт</button>
                 <button 
                   className="button" 
                   onClick={() => { setIsPlaying(false); setCurrentStepIndex(p => Math.max(0, p - 1)); }}
                   disabled={currentStepIndex <= 0}
-                >◀ Prev</button>
+                >◀ Назад</button>
                 <button 
                   className="button button-primary" 
                   onClick={() => setIsPlaying(!isPlaying)}
                   disabled={currentStepIndex >= stepStates.length - 1}
                 >
-                  {isPlaying ? '⏸ Pause' : '▶ Play'}
+                  {isPlaying ? '⏸ Пауза' : '▶ Плей'}
                 </button>
                 <button 
                   className="button" 
                   onClick={() => { setIsPlaying(false); setCurrentStepIndex(p => Math.min(stepStates.length - 1, p + 1)); }}
                   disabled={currentStepIndex >= stepStates.length - 1}
-                >Next ▶</button>
+                >Вперёд ▶</button>
               </div>
               
               {currentState && (
                 <div className="info-box">
-                  <p style={{ marginBottom: '8px' }}>Step {currentStepIndex + 1} of {stepStates.length}</p>
-                  <p>Does the path from <strong>i</strong> to <strong>j</strong> become shorter if we go through <strong>k</strong>?</p>
-                  <hr style={{ margin: '12px 0', borderColor: 'rgba(255,255,255,0.1)' }} />
-                  <p>Intermediate Node (k): <strong>{nodes[currentState.k].id}</strong></p>
-                  <p>Source (i): <strong>{nodes[currentState.i].id}</strong>, Dest (j): <strong>{nodes[currentState.j].id}</strong></p>
+                  <p style={{ marginBottom: '8px' }}>Шаг {currentStepIndex + 1} из {stepStates.length}</p>
+                  <p>Станет ли путь из <strong>i</strong> в <strong>j</strong> короче через узел <strong>k</strong>?</p>
+                  <hr style={{ margin: '12px 0', borderColor: 'rgba(0,0,0,0.1)' }} />
+                  <p>Промежуточный узел (k): <strong>{nodes[currentState.k].id}</strong></p>
+                  <p>Откуда (i): <strong>{nodes[currentState.i].id}</strong>, Куда (j): <strong>{nodes[currentState.j].id}</strong></p>
                   <div className="equation">
                     dist[{currentState.i}][{currentState.j}] = min(
                       {currentState.dist[currentState.i][currentState.j] === Infinity ? '∞' : currentState.dist[currentState.i][currentState.j]}, 
@@ -347,12 +347,12 @@ export default function App() {
                     )
                   </div>
                   {currentState.phase === 'updated' ? (
-                    <p style={{ color: '#f43f5e', marginTop: '8px', fontWeight: 'bold' }}>
-                      Yes! Distance updated.
+                    <p style={{ color: '#ef4444', marginTop: '8px', fontWeight: 'bold' }}>
+                      Да! Дистанция обновлена.
                     </p>
                   ) : (
                     <p style={{ color: 'var(--text-secondary)', marginTop: '8px' }}>
-                      No, keeping existing shortest path.
+                      Нет, оставляем текущий маршрут.
                     </p>
                   )}
                 </div>
@@ -362,7 +362,7 @@ export default function App() {
         </div>
 
         <div className="panel-section">
-          <div className="panel-title">Distance Matrix</div>
+          <div className="panel-title">Матрица расстояний</div>
           <div className="matrix-container">
             {displayDist && displayDist.length > 0 ? (
               <table className="distance-matrix">
@@ -397,7 +397,7 @@ export default function App() {
               </table>
             ) : (
               <div style={{ padding: '1rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
-                Matrix will be generated when algorithm starts.
+                Матрица будет создана после запуска алгоритма.
               </div>
             )}
           </div>
