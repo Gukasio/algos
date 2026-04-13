@@ -21,7 +21,6 @@ export default function App() {
   const [mode, setMode] = useState<Mode>('add-node');
   const [selectedNode, setSelectedNode] = useState<number | null>(null);
 
-  // Algorithm State
   const [stepStates, setStepStates] = useState<StepState[]>([]);
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(-1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -29,13 +28,12 @@ export default function App() {
 
   const svgRef = useRef<SVGSVGElement>(null);
 
-  // Auto-play effect
   useEffect(() => {
     let timer: number;
     if (isPlaying && currentStepIndex < stepStates.length - 1) {
       timer = window.setTimeout(() => {
         setCurrentStepIndex(prev => prev + 1);
-      }, 350); // 350ms per step
+      }, 600);
     } else if (isPlaying && currentStepIndex >= stepStates.length - 1) {
       setIsPlaying(false);
     }
@@ -58,7 +56,7 @@ export default function App() {
       };
       setNodes([...nodes, newNode]);
     } else if (mode === 'add-edge') {
-      setSelectedNode(null); // Clicked on empty space, deselect
+      setSelectedNode(null);
     }
   };
 
@@ -71,7 +69,6 @@ export default function App() {
         setSelectedNode(nodeId);
       } else {
         if (selectedNode !== nodeId) {
-          // Check if edge already exists
           const existing = edges.find(ed => ed.source === selectedNode && ed.target === nodeId);
           if (existing) {
             alert('Edge already exists!');
@@ -79,13 +76,8 @@ export default function App() {
             return;
           }
           
-          const weightStr = prompt('Enter edge weight:', '1');
-          if (weightStr !== null) {
-            const weight = parseFloat(weightStr);
-            if (!isNaN(weight)) {
-              setEdges([...edges, { source: selectedNode, target: nodeId, weight }]);
-            }
-          }
+          const randomWeight = Math.floor(Math.random() * 9) + 1;
+          setEdges([...edges, { source: selectedNode, target: nodeId, weight: randomWeight }]);
         }
         setSelectedNode(null);
       }
@@ -102,11 +94,9 @@ export default function App() {
     const n = nodes.length;
     const dist: DistMatrix = Array(n).fill(0).map(() => Array(n).fill(Infinity));
     
-    // Node index mapping
     const nodeIds = nodes.map(n => n.id);
     const idToIndex = (id: number) => nodeIds.indexOf(id);
 
-    // Initial distances
     for (let i = 0; i < n; i++) dist[i][i] = 0;
     
     edges.forEach(edge => {
@@ -124,7 +114,6 @@ export default function App() {
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
           if (currentDist[i][k] !== Infinity && currentDist[k][j] !== Infinity) {
-            // State 1: Comparing
             states.push({
               k, i, j,
               dist: currentDist.map(row => [...row]),
@@ -135,7 +124,6 @@ export default function App() {
             const newDist = currentDist[i][k] + currentDist[k][j];
             if (newDist < currentDist[i][j]) {
               currentDist[i][j] = newDist;
-              // State 2: Updated
               states.push({
                 k, i, j,
                 dist: currentDist.map(row => [...row]),
@@ -172,7 +160,6 @@ export default function App() {
 
   const displayDist = currentState ? currentState.dist : initialDist.length > 0 ? initialDist : null;
 
-  // Render SVG elements
   const renderEdges = () => {
     return edges.map((edge, idx) => {
       const source = nodes.find(n => n.id === edge.source);
@@ -185,7 +172,6 @@ export default function App() {
       const dy = target.y - source.y;
       const length = Math.sqrt(dx * dx + dy * dy);
       
-      // Node radius is 20
       const padding = 20;
       const offsetX = (dx / length) * padding;
       const offsetY = (dy / length) * padding;
@@ -199,7 +185,6 @@ export default function App() {
       let midX = (x1 + x2) / 2;
       let midY = (y1 + y2) / 2;
 
-      // Handle bi-directional edges by curving
       if (reverseEdge && edge.source > edge.target) {
         const curveOffset = 30;
         const nx = -dy / length;
@@ -220,7 +205,6 @@ export default function App() {
         midY = cy - 10;
       }
 
-      // Check if active in algorithm
       let edgeClass = 'edge';
       if (currentState) {
         const sourceIdx = nodes.indexOf(source);
@@ -299,7 +283,7 @@ export default function App() {
               if (selectedNode === node.id) nodeClass += " node-active";
               
               if (currentState) {
-                if (idx === currentState.k) nodeClass += " node-active"; // Intermediate node
+                if (idx === currentState.k) nodeClass += " node-active";
                 else if (idx === currentState.i || idx === currentState.j) nodeClass += " node-comparing";
               }
 
@@ -322,15 +306,7 @@ export default function App() {
       <aside className="side-panel">
         <div className="panel-section">
           <div className="panel-title">Algorithm State</div>
-          {mode !== 'running' ? (
-            <div className="info-box">
-              <p><strong>Floyd-Warshall Algorithm</strong> finds the shortest paths between all pairs of nodes.</p>
-              <br/>
-              <p>It works by progressively checking if a path between node <strong>i</strong> and <strong>j</strong> is shorter when going through an intermediate node <strong>k</strong>.</p>
-              <br/>
-              <p>Build your graph by adding nodes and edges, then click "Run Algorithm" to visualize this process.</p>
-            </div>
-          ) : (
+          {mode !== 'running' ? null : (
             <>
               <div className="controls" style={{ marginBottom: '1rem', flexWrap: 'wrap' }}>
                 <button 
