@@ -1,20 +1,21 @@
 :root {
-  --bg-primary: #0f172a; /* depth dark blue */
-  --bg-secondary: #1e293b;
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --accent-color: #3b82f6; /* bright neon blue */
-  --accent-hover: #2563eb;
-  --accent-glow: rgba(59, 130, 246, 0.5);
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-color: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-glow: rgba(37, 99, 235, 0.2);
   
-  --node-bg: #1e293b;
-  --node-border: #3b82f6;
-  --node-text: #f8fafc;
+  --node-bg: #ffffff;
+  --node-border: #475569;
+  --node-text: #0f172a;
   
-  --edge-color: #475569;
-  --edge-highlight: #f43f5e; /* neon red/pink for algorithm steps */
+  --edge-color: #94a3b8;
+  --edge-highlight: #ef4444; /* clear red for active steps */
   
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --border-color: #cbd5e1;
 }
 
 * {
@@ -39,31 +40,28 @@ body {
   flex-direction: column;
 }
 
-/* Glassmorphism Utilities */
+/* Simple flat panels instead of glass */
 .glass-panel {
-  background: rgba(30, 41, 59, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .button {
-  background: var(--bg-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
   color: var(--text-primary);
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.1s ease-in-out;
 }
 
 .button:hover:not(:disabled) {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  box-shadow: 0 0 12px var(--accent-glow);
+  background: var(--bg-secondary);
+  border-color: #94a3b8;
 }
 
 .button:disabled {
@@ -74,16 +72,15 @@ body {
 .button-primary {
   background: var(--accent-color);
   border-color: var(--accent-color);
+  color: #ffffff;
 }
 
 .button-primary:hover:not(:disabled) {
   background: var(--accent-hover);
+  color: #ffffff;
 }
 
 /* Typography styles */
 .text-gradient {
-  background: linear-gradient(90deg, #3b82f6, #a855f7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-primary);
 }
