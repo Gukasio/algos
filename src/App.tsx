@@ -76,7 +76,7 @@ export default function App() {
             return;
           }
           
-          const randomWeight = Math.floor(Math.random() * 9) + 1;
+          const randomWeight = Math.floor(Math.random() * 90) + 10; // Weights from 10 to 99
           setEdges([...edges, { source: selectedNode, target: nodeId, weight: randomWeight }]);
         }
         setSelectedNode(null);

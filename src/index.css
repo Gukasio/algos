@@ -1,16 +1,27 @@
 :root {
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
+  /* Moody Charcoal / Stone backgrounds */
+  --bg-primary: #181A1C;
+  --bg-panel: rgba(58, 61, 64, 0.85); /* 3A3D40 based */
   
-  --accent-color: #8b5cf6; /* Vibrant violet */
-  --accent-hover: #7c3aed;
+  /* Bright accents from Moodboard */
+  --accent-color: #F4C430; /* Yellow */
+  --accent-hover: #D9AE2A;
   
-  --node-bg: #ffffff;
-  --node-border: #8b5cf6;
-  --node-text: #1e293b;
+  --accent-green: #A8E05F; /* Green apple / florish */
+  --accent-green-hover: #7FBC3B;
+
+  /* Typography */
+  --text-primary: #FFFFFF;
+  --text-secondary: #E0E0E0;
+
+  /* Node & Edge base colors */
+  --node-bg: #3A3D40;
+  --node-border: #A8E05F;
+  --node-text: #FFFFFF;
   
-  --edge-color: #94a3b8;
+  --edge-color: #7d848b; 
   
+  --border-color: rgba(224, 224, 224, 0.15);
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -22,7 +33,9 @@
 
 body {
   font-family: var(--font-family);
-  background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+  background-color: var(--bg-primary);
+  /* Optional subtle texture-like radial gradient */
+  background-image: radial-gradient(circle at top right, #24272A 0%, #181A1C 80%);
   background-attachment: fixed;
   color: var(--text-primary);
   height: 100vh;
@@ -37,66 +50,63 @@ body {
   flex-direction: column;
 }
 
-/* Glassmorphism Light Effect */
+/* Glassmorphism Dark Effect */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.65);
+  background: var(--bg-panel);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .button {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  color: #374151;
+  background: #3A3D40;
+  border: 1px solid #4a4d52;
+  color: var(--text-primary);
   padding: 8px 16px;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.875rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(4px);
 }
 
 .button:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 1);
+  background: #4a4d52;
+  border-color: var(--accent-green);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(168, 224, 95, 0.15);
 }
 
 .button:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
   transform: none !important;
   box-shadow: none !important;
 }
 
 .button-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--accent-color);
   border: none;
-  color: #ffffff;
-  box-shadow: 0 4px 15px rgba(118, 75, 162, 0.3);
+  color: #181A1C; /* Dark text on bright yellow */
+  box-shadow: 0 4px 15px rgba(244, 196, 48, 0.2);
 }
 
 .button-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  background: var(--accent-hover);
+  color: #181A1C;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(118, 75, 162, 0.5);
-  color: #ffffff;
+  box-shadow: 0 6px 20px rgba(244, 196, 48, 0.4);
 }
 
-/* Typography styles */
 .text-gradient {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent-color);
   font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
