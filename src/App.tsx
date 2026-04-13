@@ -33,7 +33,7 @@ export default function App() {
     if (isPlaying && currentStepIndex < stepStates.length - 1) {
       timer = window.setTimeout(() => {
         setCurrentStepIndex(prev => prev + 1);
-      }, 600);
+      }, 200);
     } else if (isPlaying && currentStepIndex >= stepStates.length - 1) {
       setIsPlaying(false);
     }
