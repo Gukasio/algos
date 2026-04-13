@@ -238,7 +238,7 @@ export default function App() {
     <div className="app-container">
       <div className="main-content">
         <header className="header glass-panel">
-          <div className="title text-gradient">Визуализатор Флойда-Уоршелла</div>
+          <div className="title text-gradient">Флойдик</div>
           <div className="controls">
             <div className="mode-selector">
               <button 
