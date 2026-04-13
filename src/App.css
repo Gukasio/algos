@@ -19,78 +19,84 @@
   justify-content: space-between;
   align-items: center;
   z-index: 10;
-  background-color: var(--bg-primary);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .title {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
 }
 
 .controls {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   align-items: center;
 }
 
 .mode-selector {
   display: flex;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 2px;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 4px;
 }
 
 .mode-btn {
   background: transparent;
   border: none;
   color: var(--text-secondary);
-  padding: 6px 12px;
-  border-radius: 2px;
+  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .mode-btn.active {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--accent-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .workspace {
   flex: 1;
   position: relative;
-  background-color: var(--bg-secondary);
+  background: transparent;
 }
 
 .side-panel {
-  width: 350px;
-  border-left: 1px solid var(--border-color);
+  width: 380px;
+  border-left: 2px solid rgba(255, 255, 255, 0.3);
   display: flex;
   flex-direction: column;
-  background: var(--bg-primary);
   z-index: 10;
   padding: 1.5rem;
   overflow-y: auto;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .panel-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .panel-title {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
   color: var(--text-primary);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 4px;
+  border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+  padding-bottom: 6px;
 }
 
 .matrix-container {
   overflow-x: auto;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .distance-matrix {
@@ -102,125 +108,150 @@
 
 .distance-matrix th,
 .distance-matrix td {
-  padding: 6px;
+  padding: 8px;
   text-align: center;
-  border: 1px solid var(--border-color);
-  width: 30px;
-  height: 30px;
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
 }
 
 .distance-matrix th {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-weight: 600;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--accent-hover);
+  font-weight: 700;
 }
 
-/* Base style for table cells */
 .distance-matrix td {
-  background-color: var(--bg-primary);
+  background-color: transparent;
+  transition: all 0.3s ease;
 }
 
-/* Visualization active states - No pulse, just background color changes */
+/* Vivid matrix states */
 .cell-active {
-  background-color: #dbeafe; /* light blue */
+  background-color: #dbeafe; 
   color: #1e40af;
   font-weight: bold;
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .cell-comparing {
-  background-color: #fce7f3; /* light pink */
-  color: #9d174d;
+  background-color: #fce7f3;
+  color: #be185d;
   font-weight: bold;
 }
 
 .cell-updated {
-  background-color: #fee2e2; /* light red */
-  color: #b91c1c;
+  background-color: #fecdd3;
+  color: #e11d48;
   font-weight: bold;
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.4);
 }
 
 /* Info Box */
 .info-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  padding: 1rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: 1.25rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.6;
   color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
 }
 
 .equation {
   font-family: monospace;
-  background: #e2e8f0;
-  padding: 6px;
-  border-radius: 2px;
-  margin-top: 8px;
+  background: rgba(139, 92, 246, 0.1);
+  color: #5b21b6;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 12px;
   display: block;
   text-align: center;
 }
 
-/* Graph classes */
+/* Playful Graph elements */
 .node {
   cursor: pointer;
 }
 
 .node circle {
-  fill: var(--node-bg);
-  stroke: var(--node-border);
-  stroke-width: 2;
+  fill: #ffffff;
+  stroke: var(--accent-color);
+  stroke-width: 3;
+  filter: drop-shadow(0px 4px 8px rgba(139, 92, 246, 0.3));
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .node text {
   fill: var(--node-text);
-  font-weight: 500;
+  font-weight: 700;
   font-size: 14px;
   pointer-events: none;
   user-select: none;
 }
 
 .node:hover circle {
-  fill: #f1f5f9;
+  transform: scale(1.1);
+  fill: #f3e8ff;
+  filter: drop-shadow(0px 6px 12px rgba(139, 92, 246, 0.5));
 }
 
 .node-active circle {
-  stroke: #ef4444;
-  fill: #fee2e2;
+  stroke: #f43f5e;
+  fill: #fff1f2;
+  filter: drop-shadow(0px 0px 16px rgba(244, 63, 94, 0.7));
+  transform: scale(1.15);
 }
 
 .node-comparing circle {
-  stroke: #ec4899;
-  fill: #fce7f3;
+  stroke: #3b82f6;
+  fill: #eff6ff;
+  stroke-dasharray: 6 4;
+  animation: rotate-dash 2s linear infinite;
+  filter: drop-shadow(0px 0px 12px rgba(59, 130, 246, 0.5));
+}
+
+@keyframes rotate-dash {
+  100% { stroke-dashoffset: 20; }
 }
 
 .edge path {
   stroke: var(--edge-color);
-  stroke-width: 2;
+  stroke-width: 3;
   fill: none;
+  transition: all 0.3s;
 }
 
 .edge-active path {
-  stroke: #ef4444;
-  stroke-width: 3;
+  stroke: #f43f5e;
+  stroke-width: 4;
+  filter: drop-shadow(0px 0px 8px rgba(244, 63, 94, 0.5));
 }
 
 .edge-comparing path {
-  stroke: #ec4899;
-  stroke-width: 3;
-  stroke-dasharray: 4 4;
+  stroke: #3b82f6;
+  stroke-width: 4;
+  stroke-dasharray: 6 6;
+  animation: rotate-dash 1s linear infinite;
 }
 
 .weight-label {
-  fill: var(--text-primary);
-  font-size: 12px;
-  font-weight: 600;
+  fill: #1e293b;
+  font-size: 13px;
+  font-weight: 800;
   user-select: none;
 }
 
 .weight-bg {
-  fill: #ffffff;
-  stroke: var(--border-color);
-  stroke-width: 1px;
-  rx: 2px;
-  ry: 2px;
+  fill: rgba(255, 255, 255, 0.9);
+  stroke: var(--accent-color);
+  stroke-width: 2px;
+  rx: 6px;
+  ry: 6px;
+  filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.1));
 }
